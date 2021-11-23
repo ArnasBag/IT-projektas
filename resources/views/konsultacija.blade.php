@@ -8,19 +8,29 @@
                 <h4 class="card-title">Konsultacija</h4>
             </div>
             <div class="d-flex flex-column p-5 scrollable">
-                <div class="d-flex">
+                @foreach($messages as $message)
+                <!-- <div class="d-flex">
                     <img class="avatar" src="{{ asset('assets/profile.png') }}" alt="">
                     <div class="chat-message">
                         <p>Labas!</p>
                     </div>     
-                </div>
-                <div class="d-flex padding-no-avatar mb-5">
-                    <div class="chat-message">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo arcu non ligula aliquam molestie.</p>
-                    </div>     
-                </div>
+                </div> -->
+                    @if($message->user_id == auth()->user()->id)
+                        <div class="d-flex flex-row-reverse padding-no-avatar">
+                            <div class="chat-message2">
+                                <p>{{ $message->content}}</p>
+                            </div>     
+                        </div>
+                    @else
+                        <div class="d-flex padding-no-avatar">
+                            <div class="chat-message">
+                                <p>{{ $message->content}}</p>
+                            </div>     
+                        </div>
+                    @endif
+                @endforeach
 
-                <div class="d-flex flex-row-reverse">
+                <!-- <div class="d-flex flex-row-reverse">
                     <div class="chat-message2">
                         <p>Labas!</p>
                     </div>     
@@ -46,7 +56,7 @@
                     <div class="chat-message">
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo arcu non ligula aliquam molestie.</p>
                     </div>     
-                </div>
+                </div> -->
             </div>
             <div class="card-footer p-3 d-flex justify-content-between">
                 <div>

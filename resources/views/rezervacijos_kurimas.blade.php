@@ -9,34 +9,41 @@
                 <div class="card-header">Rezervacijos kūrimas</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="/reservation/create">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">Konsultacijos data</label>
-
+                            <label for="user_id" class="col-md-4 col-form-label text-md-right">Konsultantas</label>
                             <div class="col-md-6">
-                                <input id="email" type="text" class="form-control name="email" autofocus>
+                                <select id="selectBox" class="form-control">
+                                    <option value="" disabled selected>Select your option</option>
+
+                                    @foreach($users_filtered as $user)
+                                    
+                                        <option value='{{ $user->id }}'>{{ $user->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">Problemos aprašymas</label>
+                            <label for="consultation_id" class="col-md-4 col-form-label text-md-right">Konsultacijos data</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="text" class="form-control" name="password">
-
+                                <select id="dateSelect" class="form-control" name="consultation_id">
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="passwordą" class="col-md-4 col-form-label text-md-right">Konsultantas</label>
+                            <label for="problem_description" class="col-md-4 col-form-label text-md-right">Problemos aprašymas</label>
 
                             <div class="col-md-6">
-                                <input id="passwordą" type="text" class="form-control" name="passwordą">
+                                <input id="problem_description" type="text" class="form-control" name="problem_description">
 
                             </div>
                         </div>
+
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
@@ -51,5 +58,30 @@
         </div>
     </div>
 </div>
+
+<script>
+   $('#selectBox').change(function() {
+        $('#dateSelect')
+        .find('option')
+        .remove();
+        let id = $(this).val();
+        let url = "{{ url('/fill_dates') }}" + "/" + id;
+
+        $.ajax({
+           url: url,
+           type: 'get',
+           dataType: 'json',
+           success: function(response) {
+               if (response != null) {
+                    for(var key in response){
+                        console.log(response[key].id);
+                        console.log(response[key].date);
+                        $('#dateSelect').append($('<option value="' + response[key].id + '">' + response[key].date + '</option>')); 
+                    }
+               }
+           }
+       });
+   });
+</script>
 
 @endsection
