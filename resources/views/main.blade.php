@@ -3,6 +3,7 @@
 @section('content')
 <div class="container mt-5">
        <h4 style="margin: 0px;">Jūsų kreditų skaičius: 7</h4>
+       <a id="help" href="{{ url('quick-help/' . auth()->user()->id) }}">Greita pagalba</a>
     @if($reservation === null)
         <a href="{!! route('rezervacijos_kurimas') !!}" class="btn btn-main mt-5">Kurti rezervaciją</a>
     @else
@@ -20,7 +21,14 @@
     @endif
 </div>
 
+<script type="text/javascript"> 
 
+      $(document).ready( function() {
+        $('#help').hide();
+        $('#help').delay(1000).fadeIn();
+        console.log("show")
+      });
+    </script>
 
 
 @endsection

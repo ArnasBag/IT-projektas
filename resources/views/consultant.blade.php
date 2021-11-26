@@ -20,6 +20,16 @@
             </div>
         @endforeach
     </div>
+
+    <h1 class="mt-5">Jūsų notifikacijos</h1>
+    <div class="d-flex flex-column">
+        @foreach($notifications as $notification)
+            <div class="d-flex justify-content-between p-5 mb-5" style="background-color: #252a37; border-radius: 25px;">
+                <h3>{{ $notification->notifiable_id }}</h3>
+                <a href="{{ url('/quick-help/' . 1) }}" class="btn btn-main">Į konsultaciją</a>              
+            </div>
+        @endforeach
+    </div>
     
 </div>
 @endsection

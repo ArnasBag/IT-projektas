@@ -1,61 +1,39 @@
-version: "3.8"
-services:
-  it_projektas:
-    container_name: it_projektas
-    build:
-      context: .
-      dockerfile: ./docker/php/Dockerfile
-    expose:
-      - 9000
-    volumes:
-      - .:/usr/src/app
-      - ./public:/usr/src/app/public
-    depends_on:
-      - db
-    networks:
-      - app_network
+version: '3.5'
 
-  nginx:
-    container_name: nginx
+services:
+  laravel-app:
     build:
-      context: .
-      dockerfile: ./docker/nginx/Dockerfile
+      context: '.'
+      args:
+        uid: ${UID}
+    container_name: laravel-app
+    environment:
+      - APACHE_RUN_USER=#${UID}
+      - APACHE_RUN_GROUP=#${UID}
     volumes:
-    - ./public:/usr/src/app/public
+      - .:/var/www/html
     ports:
       - 8000:80
-    depends_on:
-      - it_projektas
-    environment:
-      NGINX_FPM_HOST: it_projektas
-      NGINX_ROOT: /usr/src/app/public
     networks:
-      - app_network
+      backend:
+        aliases:
+          - laravel-app
 
-  db:
-    container_name: db
-    image: mysql:8.0.20
-    restart: always
+  mysql-db:
+    image: mysql:5.7
+    container_name: mysql-db
     volumes:
-      - ./storage/db-data:/var/lib/mysql
-    ports:
-      - 3306:3306
+      - ./run/var:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: it_projektas
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: arnbag
-      MYSQL_PASSWORD: dandelionas123
+      - MYSQL_ROOT_PASSWORD=securerootpassword
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
     networks:
-      - app_network
-
-  redis:
-    container_name: redis
-    image: redis:latest
-    ports:
-      - 6379:6379
-    networks:
-      - app_network
+      backend:
+        aliases:
+          - db
 
 networks:
-  app_network:
-    driver: bridge
+  backend:
+    name: backend-network

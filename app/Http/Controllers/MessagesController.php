@@ -16,7 +16,7 @@ class MessagesController extends Controller
      */
     public function index($id)
     {
-        $consultation = Consultation::where('id', $id)->first();
+        $consultation = Consultation::where('id', $id)->where('type', null)->first();
         $messages = $consultation->messages;
 
         return view('konsultacija', compact('messages'));

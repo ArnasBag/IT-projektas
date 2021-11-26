@@ -50,3 +50,5 @@ Route::get('rezervacijos_kurimas', [ReservationsController::class, 'create'])->n
 Route::post('reservation/create', [ReservationsController::class, 'store']);
 Route::get('konsultacijos_kurimas', [ConsultationsController::class, 'create'])->name('konsultacijos_kurimas')->middleware('role:consultant');
 Route::post('konsultacijos_kurimas', [ConsultationsController::class, 'store']);
+
+Route::get('quick-help/{id}', [ConsultationsController::class, 'quick_help'])->name('quick-help');
