@@ -61,5 +61,12 @@ class ConsultationsController extends Controller
 
         return view('konsultacija', compact('messages'));
     }
+    public function end_consultation(Request $request){
+        $user = User::find($request->id);
+        $reservation = $user->reservation;
+
+        $reservation->active = false;
+        $reservation->save();
+    }
 
 }

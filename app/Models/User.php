@@ -51,4 +51,7 @@ class User extends Authenticatable
     public function consultations(){
         return $this->hasMany(Consultation::class);
     }
+    public function purchases(){
+        return $this->hasMany(Purchase::class);
+    }
 }

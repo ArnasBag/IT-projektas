@@ -69,6 +69,22 @@
         </div>
     </div>
 </div>
+<script>
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    setTimeout(function() {
+        $.ajax({
+            url: '/end-consultation',
+            type: 'POST',
+            data: {_token: CSRF_TOKEN, id: {{auth()->user()->id}}},
+            success: function () {
+                window.location.href = "/main";
+            },
+            error: function() { 
+                console.log("failure");
+            }
+        }); 
+    }, 5000);
 
+</script>
 
 @endsection

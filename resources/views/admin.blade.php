@@ -1,51 +1,57 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="main-container d-flex flex-column align-items-center justify-content-center vh-75 vw-100 ">
-    <div class="w-75 h-75 p-5 d-flex flex-column justify-content-center align-items-center secondary-container" style="background-color: #252a37; border-radius: 25px;">
-        <table class="table" style="color: white;">
+    <form method="POST" action="/admin/update">
+        @csrf
+        <button type="submit" class="btn btn-main">
+            Atnaujinti
+        </button>
+
+        <table class="table mt-5" style="color: white; width: 75vw; margin-left: auto; margin-right: auto;">
             <thead>
                 <tr>
-                <th scope="col">#</th>
-                <th scope="col">Vardas</th>
-                <th scope="col">Pavardė</th>
-                <th scope="col">Konsultantas</th>
+                    <th scope="col">Vardas</th>
+                    <th scope="col">E-paštas</th>
+                    <th scope="col">Kreditai</th>
+                    <th scope="col">Konsultantas</th>
+                    <th scope="col">Pirkimai</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Arnas</td>
-                    <td>Bagočius</td>
-                    <td>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                @foreach($users as $user)
+                    <tr>
+                        <td>{{$user->name}}</td>
+                        <td>{{$user->email}}</td>
+                        <td><input type="number" name="credits[{{$user->id}}]" value={{$user->credits}} ></td>
+                        <td>
+                            <div class="form-check">
+                                <input {{$user->type == 'consultant' ? "checked" : ""}} class="form-check-input" type="checkbox" value="consultant" name="consultants[{{$user->id}}]">
+                            </div>
+                        </td>
+                        <td>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Peržiūrėti pirkimus
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <div class="form-check m-1">
+                                    @foreach($user->purchases as $purchase)
+                                        @if(!$purchase->accepted)
+                                            <input class="form-check-input" name="accepted[{{$purchase->id}}]" type="checkbox" value="1" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Kreiditų skaičius: {{$purchase->credit_amount}}
+                                            </label>
+                                            <br>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
-                    </td>
+                        </td>
+                    </tr>
 
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jonas</td>
-                    <td>Jonaitis</td>
-                    <td>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Petras</td>
-                    <td>Petraitis</td>
-                    <td>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        </div>
-                    </td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
-    </div>    
-</div>
+    </form>
 @endsection

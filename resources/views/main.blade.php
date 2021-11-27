@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-5">
-       <h4 style="margin: 0px;">Jūsų kreditų skaičius: 7</h4>
+       <h4 style="margin: 0px;">Jūsų kreditų skaičius: {{auth()->user()->credits}}</h4>
        <a id="help" href="{{ url('quick-help/' . auth()->user()->id) }}">Greita pagalba</a>
     @if($reservation === null)
         <a href="{!! route('rezervacijos_kurimas') !!}" class="btn btn-main mt-5">Kurti rezervaciją</a>

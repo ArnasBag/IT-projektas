@@ -18,7 +18,7 @@ class ReservationsController extends Controller
      */
     public function index(){
         $user = User::find(auth()->user()->id);
-        $reservation = $user->reservation;
+        $reservation = $user->reservation->where('active', 1)->first();
         return view('main', compact('reservation'));
     }
     public function create(){

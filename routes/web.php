@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ConsultationsController;
 use App\Http\Controllers\ReservationsController;
 use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\PurchasesController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -39,11 +42,8 @@ Route::get('demo', function(){
     return view('demo');
 })->name('demo');
 
-Route::get('admin', function(){
-    return view('admin');
-})->name('admin')->middleware('role:admin');
-
-
+Route::get('admin', [AdminController::class, 'index'])->name('admin')->middleware('role:admin');
+Route::post('admin/update', [AdminController::class, 'store']);
 Route::get('consultant', [ConsultationsController::class, 'index'])->name('consultant')->middleware('role:consultant');
 Route::get('fill_dates/{id}', [ReservationsController::class, 'fill_dates']);
 Route::get('rezervacijos_kurimas', [ReservationsController::class, 'create'])->name('rezervacijos_kurimas');
@@ -52,3 +52,5 @@ Route::get('konsultacijos_kurimas', [ConsultationsController::class, 'create'])-
 Route::post('konsultacijos_kurimas', [ConsultationsController::class, 'store']);
 
 Route::get('quick-help/{id}', [ConsultationsController::class, 'quick_help'])->name('quick-help');
+Route::post('credits/purchase', [PurchasesController::class, 'store']);
+Route::post('end-consultation', [ConsultationsController::class, 'end_consultation']);
