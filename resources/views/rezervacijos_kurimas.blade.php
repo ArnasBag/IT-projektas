@@ -54,13 +54,13 @@
                             </div>
                         </div>
 
-                        <!-- @if ($errors->any())
+                        @if ($errors->any())
                             @foreach ($errors->all() as $error)
                                 <div class="form-group row ml-5" style="color: red;">
                                     <h6 class="">Jūsų kreditų skaičius per mažas šios konsultacijos rezervavimui</h6>
                                 </div>
                             @endforeach
-                        @endif -->
+                        @endif
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-main">

@@ -26,9 +26,25 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-style">
         <div class="container">
-            <a class="navbar-brand" style="color: white;" href="{{ url('/main') }}">
-                TeleHelp
-            </a>
+            @if(!(auth()->user() === null))
+                @if(auth()->user()->type === null)
+                    <a class="navbar-brand" style="color: white;" href="{{url('/main')}}">
+                        TeleHelp
+                    </a>
+                @elseif(auth()->user()->type == 'consultant')
+                    <a class="navbar-brand" style="color: white;" href="{{url('/consultant')}}">
+                        TeleHelp
+                    </a>
+                @else
+                    <a class="navbar-brand" style="color: white;" href="{{url('/admin')}}">
+                        TeleHelp
+                    </a>
+                @endif
+            @else
+                <a class="navbar-brand" style="color: white;" href="{{url('/')}}">
+                        TeleHelp
+                </a>
+            @endif
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -67,7 +83,9 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a href="{!! route('pirkimas') !!}" class="dropdown-item">Pirkti kreditus</a>
+                                @if(auth()->user()->type === null)
+                                    <a href="{!! route('pirkimas') !!}" class="dropdown-item">Pirkti kreditus</a>
+                                @endif
 
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();

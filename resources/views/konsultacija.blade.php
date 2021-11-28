@@ -52,21 +52,28 @@
     var messageBody = document.querySelector('.scrollable');
     messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
 
-    
+    var oldStartTime = localStorage.getItem('startTime');
+    var startTime = oldStartTime ? new Date(oldStartTime) : new Date();
+    localStorage.setItem('startTime', startTime);
 
+    var elapsed = new Date() - startTime;
+    var duration = {{ $consultation->length }} * 100 - elapsed;
+    console.log(duration);
+    
     setTimeout(function() {
         $.ajax({
             url: '/end-consultation',
             type: 'POST',
             data: {_token: CSRF_TOKEN, id: {{auth()->user()->id}}},
             success: function () {
+                localStorage.clear();
                 window.location.href = "/main-test";
             },
             error: function() { 
                 console.log("failure");
             }
         }); 
-    }, {{ $consultation->length }} * 100);
+    }, duration);
 
 </script>
 

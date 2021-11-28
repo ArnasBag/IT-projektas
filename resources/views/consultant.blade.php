@@ -14,7 +14,6 @@
                     <h3>Data: {{ $consultation->date }}</h3>
                 </div>
                 <div>
-                    <p>Liko laiko: 19d 14h 13min 55s</p>
                     <a href="{{ url('/consultation/'. $consultation->id)}}" class="btn btn-main">Į konsultaciją</a>
                 </div>
             </div>

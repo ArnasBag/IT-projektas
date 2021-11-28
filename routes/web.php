@@ -27,7 +27,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/main', [ReservationsController::class, 'index'])->name('main');
 Route::get('/consultation/{id}', [MessagesController::class, 'index'])->name('consultation');
 
 Route::get('pirkimas', function(){
@@ -46,7 +45,6 @@ Route::get('admin', [AdminController::class, 'index'])->name('admin')->middlewar
 Route::post('admin/update', [AdminController::class, 'store']);
 Route::get('consultant', [ConsultationsController::class, 'index'])->name('consultant')->middleware('role:consultant');
 Route::get('fill_dates/{id}', [ReservationsController::class, 'fill_dates']);
-Route::get('rezervacijos_kurimas', [ReservationsController::class, 'create'])->name('rezervacijos_kurimas');
 Route::post('reservation/create', [ReservationsController::class, 'store']);
 Route::get('konsultacijos_kurimas', [ConsultationsController::class, 'create'])->name('konsultacijos_kurimas')->middleware('role:consultant');
 Route::post('konsultacijos_kurimas', [ConsultationsController::class, 'store']);
@@ -58,3 +56,8 @@ Route::post('send', [MessagesController::class, 'sendMessage']);
 Route::get('main-test', [MessagesController::class, 'test']);
 Route::post('end-help', [ConsultationsController::class, 'endHelp']);
 Route::get('check-help/{id}', [ConsultationsController::class, 'checkIfEnded']);
+
+Route::middleware('client')->group(function(){
+    Route::get('/main', [ReservationsController::class, 'index'])->name('main');
+    Route::get('rezervacijos_kurimas', [ReservationsController::class, 'create'])->name('rezervacijos_kurimas');
+});

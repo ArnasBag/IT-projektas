@@ -13,11 +13,10 @@
         <h1 class="mt-5">Jūsų rezervacija:</h1>
         <div class="d-flex justify-content-between p-5" style="background-color: #252a37; border-radius: 25px;">
             <div>
-                <h3>Rezervacijos id: {{$reservation->id}} | {{$reservation->reservation_date}}</h3>
+                <h3>Rezervacijos id: {{$reservation->id}} | {{$consultation->date}}</h3>
                 <p>Aprašymas: {{$reservation->problem_description}}</p>
             </div>
             <div>
-                <p>Liko laiko: 19d 14h 13min 55s</p>
                 <a href="{{ url('/consultation/' . $reservation->consultation_id) }}" class="btn btn-main">Į konsultaciją</a>
             </div>
         </div>
