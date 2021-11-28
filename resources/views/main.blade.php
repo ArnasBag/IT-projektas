@@ -2,8 +2,11 @@
 
 @section('content')
 <div class="container mt-5">
-       <h4 style="margin: 0px;">Jūsų kreditų skaičius: {{auth()->user()->credits}}</h4>
-       <a id="help" href="{{ url('quick-help/' . auth()->user()->id) }}">Greita pagalba</a>
+    <div class="d-flex justify-content-between">
+        <h4 style="margin-top: auto; margin-bottom: auto;">Jūsų kreditų skaičius: {{auth()->user()->credits}}</h4>
+        <a id="help" class="btn btn-help"href="{{ url('quick-help/' . auth()->user()->id) }}">Greita pagalba</a>
+    </div>
+
     @if($reservation === null)
         <a href="{!! route('rezervacijos_kurimas') !!}" class="btn btn-main mt-5">Kurti rezervaciją</a>
     @else
@@ -15,7 +18,7 @@
             </div>
             <div>
                 <p>Liko laiko: 19d 14h 13min 55s</p>
-                <a href="{{ url('/consultation/' . $reservation->id) }}" class="btn btn-main">Į konsultaciją</a>
+                <a href="{{ url('/consultation/' . $reservation->consultation_id) }}" class="btn btn-main">Į konsultaciją</a>
             </div>
         </div>
     @endif
@@ -25,7 +28,7 @@
 
       $(document).ready( function() {
         $('#help').hide();
-        $('#help').delay(1000).fadeIn();
+        $('#help').delay(15000).fadeIn();
         console.log("show")
       });
     </script>

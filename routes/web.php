@@ -54,3 +54,7 @@ Route::post('konsultacijos_kurimas', [ConsultationsController::class, 'store']);
 Route::get('quick-help/{id}', [ConsultationsController::class, 'quick_help'])->name('quick-help');
 Route::post('credits/purchase', [PurchasesController::class, 'store']);
 Route::post('end-consultation', [ConsultationsController::class, 'end_consultation']);
+Route::post('send', [MessagesController::class, 'sendMessage']);
+Route::get('main-test', [MessagesController::class, 'test']);
+Route::post('end-help', [ConsultationsController::class, 'endHelp']);
+Route::get('check-help/{id}', [ConsultationsController::class, 'checkIfEnded']);

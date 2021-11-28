@@ -29,11 +29,14 @@ class AdminController extends Controller
                 $purchase->save();
             }
         }
-        foreach(array_keys($request->credits) as $user_id){
-            $user = User::find($user_id);
-            $user->credits = $request->credits[$user_id];
-            $user->save();
+        else{
+            foreach(array_keys($request->credits) as $user_id){
+                $user = User::find($user_id);
+                $user->credits = $request->credits[$user_id];
+                $user->save();
+            }
         }
+
         foreach(array_keys($request->consultants) as $user_id){
             $user = User::find($user_id);
             $user->type = $request->consultants[$user_id];
@@ -42,7 +45,6 @@ class AdminController extends Controller
         // $user = User::find($purchase->user_id);
         // $user->credits = $request->credits;
         // $user->save();
-
         return redirect()->to('/admin');
     }
 }

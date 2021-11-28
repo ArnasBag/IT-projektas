@@ -21,7 +21,7 @@ class ConsultationsController extends Controller
     {
         $user = User::find(auth()->user()->id);
 
-        $consultations = $user->consultations->where('type', null);
+        $consultations = $user->consultations->where('type', null)->where('active', true);
         $notifications = $user->notifications;
 
         return view('consultant', compact('consultations', 'notifications'));
@@ -30,6 +30,12 @@ class ConsultationsController extends Controller
         return view('konsultacijos_kurimas');
     }
     public function store(Request $request){
+
+        $validated = $request->validate([
+            'length' => 'required|numeric',
+            'date' => 'required|date',
+        ]);
+
         Consultation::create([
             'length' => $request->length,
             'date' => $request->date,
@@ -43,23 +49,27 @@ class ConsultationsController extends Controller
 
         if(auth()->user()->type === null){
             $notification = DB::table('notifications')->where('data', auth()->user()->id)->first();
-            if($notification === null){
-                foreach($users as $user){
-                    $user->notify(new UserNeedsHelp(auth()->user()));
-                }
-            }
             $consultation = Consultation::firstOrCreate([
                 'user_id' => auth()->user()->id,
                 'type' => 'quick',
             ]);
-        }
-        elseif(auth()->user()->type == 'consultant'){
-            $test = DB::table('notifications')->where('data', $id)->delete();
-        }
-        $consultation = Consultation::where('user_id', $id)->where('type', 'quick')->first();
-        $messages = $consultation->messages;
+            $messages = $consultation->messages;
+            if($notification === null && $messages->first() === null){
+                foreach($users as $user){
+                    $user->notify(new UserNeedsHelp(auth()->user()));
+                }
+            }
 
-        return view('konsultacija', compact('messages'));
+            return view('quick-help', compact('messages', 'consultation'));
+        }
+        else{
+            $consultation = Consultation::where('user_id', $id)->where('type', 'quick')->first();
+            DB::table('notifications')->where('data', $id)->delete();
+
+            $messages = $consultation->messages;
+            return view('quick-help', compact('messages', 'consultation'));
+        }
+        
     }
     public function end_consultation(Request $request){
         $user = User::find($request->id);
@@ -68,5 +78,19 @@ class ConsultationsController extends Controller
         $reservation->active = false;
         $reservation->save();
     }
+    public function endHelp(Request $request){
+        DB::table('messages')->where('consultation_id', $request->consultation)->delete();
+        $user = auth()->user();
+        $user->stars = $user->stars + 1;
+        $user->save();
+        DB::table('consultations')->where('id', $request->consultation)->delete();
+        return redirect()->to('/consultant');
+    }
+    public function checkIfEnded($id){
+        if(Consultation::where('id', $id)->exists()){
+            return response()->json(true);
+        }
 
+        return response()->json(false);
+    }
 }

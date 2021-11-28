@@ -17,7 +17,11 @@
 
                             <div class="col-md-6">
                                 <input id="credit_amount" type="number" class="form-control" name="credit_amount">
-
+                                @error('credit_amount')
+                                    <span role="alert" style="color: red;">
+                                        <strong>{{$message}}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 

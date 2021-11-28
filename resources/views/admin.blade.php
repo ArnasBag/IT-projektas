@@ -3,9 +3,6 @@
 @section('content')
     <form method="POST" action="/admin/update">
         @csrf
-        <button type="submit" class="btn btn-main">
-            Atnaujinti
-        </button>
 
         <table class="table mt-5" style="color: white; width: 75vw; margin-left: auto; margin-right: auto;">
             <thead>
@@ -15,6 +12,7 @@
                     <th scope="col">Kreditai</th>
                     <th scope="col">Konsultantas</th>
                     <th scope="col">Pirkimai</th>
+                    <th scope="col">Žvaigždutės</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,10 +46,17 @@
                             </div>
                         </div>
                         </td>
+                        <td>{{$user->stars}}</td>
                     </tr>
 
                 @endforeach
             </tbody>
         </table>
+        <div style="width: 75vw; margin-left: auto; margin-right: auto;">
+            <button type="submit" class="btn btn-main">
+                Atnaujinti
+            </button>
+        </div>
+
     </form>
 @endsection

@@ -143,3 +143,21 @@ body{
     width: 500px;
 }
 
+.btn-help{
+    padding-left: 50px;
+    padding-right: 50px;
+    background-color: transparent;
+    color:#50961d;
+    border-width: 5px;
+    border-color: #50961d;
+}
+
+.btn-help:hover{
+    color:#50961d;
+}
+
+.btn-send{
+    color: white;
+    background-color: transparent;
+    border: 0px;
+}

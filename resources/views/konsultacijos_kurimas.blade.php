@@ -16,7 +16,12 @@
                             <label for="length" class="col-md-4 col-form-label text-md-right">Konsultacijos trukmė</label>
 
                             <div class="col-md-6">
-                                <input id="length" type="text" class="form-control" name="length" autofocus>
+                                <input id="length" type="text" class="form-control" name="length" autofocus value="{{old('length')}}">
+                                @error('length')
+                                    <span role="alert" style="color: red;">
+                                        <strong>{{$message}}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -24,8 +29,12 @@
                             <label for="date" class="col-md-4 col-form-label text-md-right">Konsultacijos data</label>
 
                             <div class="col-md-6">
-                                <input id="date" type="date" class="form-control" name="date">
-
+                                <input id="date" type="date" class="form-control" name="date" value="{{old('date')}}">
+                                @error('date')
+                                    <span role="alert" style="color: red;">
+                                        <strong>{{$message}}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 

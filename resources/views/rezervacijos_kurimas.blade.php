@@ -23,6 +23,11 @@
                                         <option value='{{ $user->id }}'>{{ $user->name}}</option>
                                     @endforeach
                                 </select>
+                                @error('consultation_id')
+                                    <span role="alert" style="color: red;">
+                                        <strong>Būtina pasirinkti konsultantą</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -32,6 +37,11 @@
                             <div class="col-md-6">
                                 <select id="dateSelect" class="form-control" name="consultation_id">
                                 </select>
+                                @error('consultation_id')
+                                    <span role="alert" style="color: red;">
+                                        <strong>Būtina įvesti konsultacijos datą</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -44,7 +54,13 @@
                             </div>
                         </div>
 
-
+                        <!-- @if ($errors->any())
+                            @foreach ($errors->all() as $error)
+                                <div class="form-group row ml-5" style="color: red;">
+                                    <h6 class="">Jūsų kreditų skaičius per mažas šios konsultacijos rezervavimui</h6>
+                                </div>
+                            @endforeach
+                        @endif -->
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-main">

@@ -30,7 +30,7 @@ class ReservationsController extends Controller
 
         foreach($users as $user){
             foreach($user->consultations as $consultation){
-                if($consultation->reserved == 0){
+                if($consultation->reserved == 0 && $consultation->active == 1 && $consultation->type == null){
 
                     $flag = true;
                 }
@@ -48,12 +48,21 @@ class ReservationsController extends Controller
         
         $user = User::where('id', $id)->first();
 
-        $consultations = $user->consultations->where('reserved', 0);
+        $consultations = $user->consultations->where('reserved', 0)->where('active', 1)->where('type', null);
 
         return response()->json($consultations);
     }
 
     public function store(Request $request){
+
+        $validated = $request->validate([
+            'consultation_id' => 'required',
+        ]);
+        $consultation = Consultation::where('id', $request->consultation_id)->first();
+        if($consultation->length > auth()->user()->credits){
+            return back()->withErrors($consultation->length);
+        }
+
         $reservation = Reservation::create([
             'reservation_date' => now(),
             'problem_description' => $request->problem_description,
