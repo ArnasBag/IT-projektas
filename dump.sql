@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 28, 2021 at 01:40 PM
+-- Generation Time: Nov 29, 2021 at 12:13 PM
 -- Server version: 8.0.26-0ubuntu0.20.04.3
 -- PHP Version: 7.4.3
 
@@ -52,9 +52,16 @@ INSERT INTO `consultations` (`id`, `length`, `date`, `user_id`, `reserved`, `typ
 (12, 120, '2021-11-27 00:00:00', 3, 1, NULL, 0),
 (29, 100, '2021-11-01 00:00:00', 2, 1, NULL, 0),
 (36, 120, '2021-11-30 00:00:00', 2, 1, NULL, 0),
-(37, 120, '2021-11-28 00:00:00', 2, 1, NULL, 1),
-(38, NULL, NULL, 2, 0, NULL, 1),
-(39, 120, '2021-11-29 00:00:00', 2, 0, NULL, 1);
+(37, 120, '2021-11-28 00:00:00', 2, 1, NULL, 0),
+(40, 120, '2021-11-22 00:00:00', 2, 1, NULL, 0),
+(41, 1200, '2021-11-29 00:00:00', 2, 1, NULL, 0),
+(42, 100, '2021-11-25 00:00:00', 2, 1, NULL, 0),
+(43, 100, '2021-11-29 00:00:00', 2, 1, NULL, 0),
+(44, 100, '2021-11-18 00:00:00', 2, 1, NULL, 0),
+(45, 100, '2021-11-17 00:00:00', 2, 1, NULL, 0),
+(46, 100, '2021-11-19 00:00:00', 2, 1, NULL, 0),
+(47, 120, '2021-11-30 00:00:00', 2, 1, NULL, 0),
+(48, 120, '2021-12-01 00:00:00', 2, 1, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -85,6 +92,18 @@ CREATE TABLE `messages` (
   `user_id` bigint UNSIGNED NOT NULL,
   `consultation_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `content`, `creation_date`, `user_id`, `consultation_id`) VALUES
+(47, 'Labas', '2021-11-28 14:18:28', 1, 40),
+(48, 'Sveiki', '2021-11-28 14:18:33', 2, 40),
+(49, 'Labas', '2021-11-28 14:20:38', 1, 41),
+(50, 'Sveiki', '2021-11-28 14:20:45', 2, 41),
+(51, 'labas', '2021-11-28 20:29:57', 2, 48),
+(52, 'sveiki', '2021-11-28 20:30:02', 1, 48);
 
 -- --------------------------------------------------------
 
@@ -184,8 +203,9 @@ INSERT INTO `purchases` (`id`, `credit_amount`, `accepted`, `user_id`) VALUES
 (4, 100, 1, 1),
 (5, 111, 1, 1),
 (6, 500, 1, 1),
-(7, NULL, 0, 4),
-(8, 120, 1, 1);
+(8, 120, 1, 1),
+(9, 100, 0, 2),
+(10, 100, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -216,7 +236,16 @@ INSERT INTO `reservations` (`id`, `reservation_date`, `problem_description`, `us
 (16, '2021-11-27 16:48:53', 'gfsdgfdsg', 1, 7, 0),
 (17, '2021-11-28 07:16:23', 'neina paskambint mamai', 1, 29, 0),
 (18, '2021-11-28 07:55:27', 'neina paskambint mamai', 1, 36, 0),
-(19, '2021-11-28 08:48:29', NULL, 1, 37, 1);
+(19, '2021-11-28 08:48:29', NULL, 1, 37, 0),
+(21, '2021-11-28 14:18:13', 'neina paskambint mamai', 1, 40, 0),
+(22, '2021-11-28 14:20:29', 'neina paskambint mamai', 1, 41, 0),
+(23, '2021-11-28 14:29:58', 'neina paskambint mamai', 1, 42, 0),
+(24, '2021-11-28 14:32:16', 'fgfdsghhgd', 1, 43, 0),
+(25, '2021-11-28 14:34:37', 'fgfdsghhgd', 1, 44, 0),
+(26, '2021-11-28 14:34:59', 'fgfdsghhgd', 1, 45, 0),
+(27, '2021-11-28 14:35:29', 'neina paskambint mamai', 1, 46, 0),
+(28, '2021-11-28 20:25:03', 'fgfdsghhgd', 1, 47, 0),
+(29, '2021-11-28 20:29:50', 'fgfdsghhgd', 1, 48, 0);
 
 -- --------------------------------------------------------
 
@@ -246,10 +275,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `surname`, `birth_date`, `phone`, `email`, `email_verified_at`, `password`, `type`, `remember_token`, `created_at`, `updated_at`, `credits`, `stars`) VALUES
-(1, 'Arnas Bagočius', NULL, NULL, NULL, 'arnas.bagocius@gmail.com', NULL, '$2y$10$9K2YX9J5DJzbTLen7jUeEeMN1vhdi7TwylS6YrvkRmsRrLxXrPp8q', NULL, NULL, '2021-11-22 16:44:51', '2021-11-28 08:59:51', 1020, 0),
+(1, 'Arnas Bagočius', NULL, NULL, NULL, 'arnas.bagocius@gmail.com', NULL, '$2y$10$9K2YX9J5DJzbTLen7jUeEeMN1vhdi7TwylS6YrvkRmsRrLxXrPp8q', NULL, NULL, '2021-11-22 16:44:51', '2021-11-28 20:30:05', 8059, 0),
 (2, 'Jonas Jonaitis', NULL, NULL, NULL, 'jonas.jonaitis@gmail.com', NULL, '$2y$10$EVGH9lUc5LYu4OfqBoR/FO2x6VzJ77NsuIUrKIWuB2D50pylJ7zGy', 'consultant', NULL, '2021-11-22 16:47:17', '2021-11-28 07:55:07', 10, 2),
 (3, 'Petras Petraitis', NULL, NULL, NULL, 'petras.petraitis@gmail.com', NULL, '$2y$10$Jp4p9S0uQJ.C.Ducg33pXur0rbdR9uqi4YNYuuURCqVeYoBF7udNu', 'consultant', NULL, '2021-11-22 18:28:32', '2021-11-27 11:28:24', 0, 0),
-(4, 'Arnas Bagočius2', NULL, NULL, NULL, 'abagocius0@gmail.com', NULL, '$2y$10$bTv.fDvWnsYB/jFuGXO3K.phrmBcyqJzWOJ63.2kRRaVNURcK59cm', 'admin', NULL, '2021-11-22 19:25:15', '2021-11-22 19:25:15', 0, 0);
+(4, 'Arnas Bagočius2', NULL, NULL, NULL, 'abagocius0@gmail.com', NULL, '$2y$10$bTv.fDvWnsYB/jFuGXO3K.phrmBcyqJzWOJ63.2kRRaVNURcK59cm', 'admin', NULL, '2021-11-22 19:25:15', '2021-11-22 19:25:15', 0, 0),
+(8, 'test', NULL, NULL, NULL, 'test@gmail.com', NULL, '$2y$10$vgxmXx.JYzVyQx1I/X2aZuoLF1DrjG2UPE6OLGrsdFl3nHX4wCX9e', NULL, NULL, '2021-11-28 11:55:26', '2021-11-28 11:55:26', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -356,7 +386,7 @@ ALTER TABLE `websockets_statistics_entries`
 -- AUTO_INCREMENT for table `consultations`
 --
 ALTER TABLE `consultations`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -368,7 +398,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -386,19 +416,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `websockets_statistics_entries`
